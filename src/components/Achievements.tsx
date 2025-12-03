@@ -1,16 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ScrollText, FlaskConical, BookOpen, Trophy, Medal, GraduationCap, Sparkles, ExternalLink } from "lucide-react";
+import { ScrollText, FlaskConical, BookOpen, Sparkles, ExternalLink, Plane, Rocket, Award, Lightbulb } from "lucide-react";
 
 const featuredAchievements = [
+  {
+    icon: Lightbulb,
+    title: "Georgia Tech InVenture Prize Finalist",
+    subtitle: "Emmy Award-winning innovation competition",
+    description: "Competed in Georgia Tech's premier student innovation competition, broadcast live on PBS. The InVenture Prize showcases groundbreaking inventions and entrepreneurship from Georgia Tech students.",
+    year: "2025",
+    highlight: true,
+    link: "https://www.pbs.org/video/2025-georgia-tech-inventure-prize-dlawfz/",
+  },
   {
     icon: FlaskConical,
     title: "Regeneron Science Talent Search Scholar",
     subtitle: "Top 300 / 2,000+ applicants nationwide",
-    description: "Selected as a Scholar in America's oldest and most prestigious science research competition. Recognized for original research in computational biology and innovative problem-solving approach.",
+    description: "Selected among America's top 300 teen scientists in the nation's oldest and most prestigious high school science competition (formerly Intel STS, Westinghouse STS). Recognized for original materials science research.",
     year: "2023",
     highlight: true,
+    link: "https://doi.org/10.47611/jsrhs.v11i3.2797",
   },
   {
     icon: ScrollText,
@@ -24,32 +34,34 @@ const featuredAchievements = [
 
 const achievements = [
   {
-    icon: BookOpen,
-    title: "Published Researcher",
-    subtitle: "Journal of Student Research",
-    description: "Authored and published peer-reviewed research contributing to the academic discourse in my field of study.",
-    year: "2023",
-  },
-  {
-    icon: Trophy,
-    title: "TiE Atlanta Finalist",
-    subtitle: "Young Entrepreneurs Competition",
-    description: "Pitched a startup concept to industry leaders and investors, advancing to the finals of Georgia's premier entrepreneurship competition.",
-    year: "2023",
-  },
-  {
-    icon: Medal,
-    title: "International STEM Champions",
-    subtitle: "Global Competition Recognition",
-    description: "Led a team to victory in an international STEM competition, competing against hundreds of teams from around the world.",
+    icon: Plane,
+    title: "International UAS4STEM Champions",
+    subtitle: "Skydio · AMA · EAA AirVenture",
+    description: "Led McIntosh Aeronautics (sponsored by Airbus) to 1st place at the world's largest aviation event in a search-and-rescue autonomous drone competition.",
     year: "2022",
   },
   {
-    icon: GraduationCap,
-    title: "Salutatorian",
-    subtitle: "McIntosh High School",
-    description: "Graduated with the second-highest academic standing in my class while balancing research, entrepreneurship, and extracurriculars.",
+    icon: Award,
+    title: "Yale Science & Engineering Award",
+    subtitle: "Georgia Science & Engineering Fair",
+    description: "Most Outstanding STEM Exhibit at the 75th Georgia Science Fair. Also received Best in Category (Materials Science) and 1st Honors.",
     year: "2023",
+    link: "https://doi.org/10.47611/jsrhs.v11i3.2797",
+  },
+  {
+    icon: Rocket,
+    title: "2nd Place Startup Exchange",
+    subtitle: "Southeast Pitch Competition",
+    description: "Selected as the 2nd best startup pitch throughout the Southeast at Startup Exchange Summit.",
+    year: "2024",
+  },
+  {
+    icon: BookOpen,
+    title: "Published Researcher",
+    subtitle: "Journal of Student Research",
+    description: "Authored peer-reviewed research in materials science as a high school student.",
+    year: "2022",
+    link: "https://doi.org/10.47611/jsrhs.v11i3.2797",
   },
 ];
 
@@ -111,6 +123,17 @@ export default function Achievements() {
                 <p className="text-muted leading-relaxed">
                   {achievement.description}
                 </p>
+                {achievement.link && (
+                  <a 
+                    href={achievement.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-4 text-sm text-accent hover:text-accent-secondary transition-colors duration-200"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    View more
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
@@ -146,6 +169,17 @@ export default function Achievements() {
                 <p className="text-sm text-muted leading-relaxed">
                   {achievement.description}
                 </p>
+                {achievement.link && (
+                  <a 
+                    href={achievement.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-3 text-xs text-accent/70 hover:text-accent transition-colors duration-200"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    View more
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}

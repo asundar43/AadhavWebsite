@@ -16,12 +16,12 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Aadhav Sundar | Building things I wish existed",
-  description: "Founder, Engineer, and Builder. Creating products that solve real problems - from AI-powered orthotics to branching AI conversations.",
-  keywords: ["Aadhav Sundar", "Georgia Tech", "Auralis Technologies", "BranchGPT", "Stride Labs", "AI", "Founder"],
+  description: "Georgia Tech builder. Mark Cuban-backed founder at Interlock Studios. Creator of Auralis—used in 30+ countries. Patent-pending AI for CAD automation.",
+  keywords: ["Aadhav Sundar", "Georgia Tech", "Interlock Studios", "Auralis", "Mark Cuban", "AI", "Founder", "CAD automation"],
   authors: [{ name: "Aadhav Sundar" }],
   openGraph: {
     title: "Aadhav Sundar | Building things I wish existed",
-    description: "Founder, Engineer, and Builder. Creating products that solve real problems.",
+    description: "Georgia Tech builder. Mark Cuban-backed founder. Creator of Auralis—used in 30+ countries.",
     type: "website",
   },
 };
