@@ -1,12 +1,10 @@
-import {
-  Navigation,
-  Hero,
-  About,
-  Experience,
-  Projects,
-  Achievements,
-  Footer,
-} from "@/components";
+import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
+import Achievements from "@/components/Achievements";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (

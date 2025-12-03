@@ -282,6 +282,14 @@ export default function Hero() {
           }}
         />
         
+        {/* Bottom vignette - darker near scroll button */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 15%, transparent 35%)",
+          }}
+        />
+        
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           {/* Location badge */}
           <motion.div

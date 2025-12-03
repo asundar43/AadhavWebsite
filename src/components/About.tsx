@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import WorldMap from "./WorldMap";
+import SpinningGlobe from "./SpinningGlobe";
+import { StarfieldBackground } from "./StarfieldBackground";
 
 const highlights = [
   { main: "Interlock Studios", sub: "Mark Cuban backed" },
@@ -11,19 +12,37 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="about" className="relative py-24 px-6 overflow-hidden">
+      {/* Top fade - transition from Hero section */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-20"
+        style={{
+          background: "linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%)",
+        }}
+      />
+      
+      {/* Starfield Background - behind the globe */}
+      <StarfieldBackground count={120} />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-sm font-mono text-accent mb-4 tracking-wider uppercase">
+          <h2 className="text-sm font-mono text-accent mb-4 tracking-wider uppercase relative z-20">
             About
           </h2>
           
-          <div className="glass rounded-3xl p-8 md:p-12">
+          <div 
+            className="glass rounded-3xl p-8 md:p-12 relative z-20"
+            style={{
+              background: "rgba(0, 0, 0, 0.4)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
+          >
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed mb-6">
               I build what I needed—and scale what others need.
             </p>
@@ -52,8 +71,8 @@ export default function About() {
             </div>
           </div>
 
-          {/* World Map Visualization */}
-          <WorldMap />
+          {/* Spinning Globe Visualization */}
+          <SpinningGlobe />
         </motion.div>
       </div>
     </section>
