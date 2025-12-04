@@ -96,6 +96,9 @@ export default function SpinningGlobe() {
   const animationRef = useRef<number | null>(null)
   const isDraggingRef = useRef(false)
   const lastMouseRef = useRef<[number, number]>([0, 0])
+  const isInitializedRef = useRef(false)
+  const projectionRef = useRef<d3.GeoProjection | null>(null)
+  const pathGeneratorRef = useRef<d3.GeoPath | null>(null)
 
   const width = 500
   const height = 500
@@ -116,26 +119,26 @@ export default function SpinningGlobe() {
     loadWorldData()
   }, [])
 
-  const render = useCallback(() => {
-    if (!svgRef.current || worldData.length === 0) return
+  // Initialize SVG structure once
+  const initializeSvg = useCallback(() => {
+    if (!svgRef.current || worldData.length === 0 || isInitializedRef.current) return
 
     const svg = d3.select(svgRef.current)
-    
-    const projection = d3.geoOrthographic()
+    svg.selectAll("*").remove()
+
+    // Create projection and path generator (reused)
+    projectionRef.current = d3.geoOrthographic()
       .scale(scale)
       .translate([width / 2, height / 2])
       .clipAngle(90)
-      .precision(0.1)
-      .rotate([rotationRef.current[0], rotationRef.current[1], 0])
+      .precision(0.5) // Slightly lower precision for better performance
 
-    const path = d3.geoPath(projection)
-    
-    svg.selectAll("*").remove()
+    pathGeneratorRef.current = d3.geoPath(projectionRef.current)
 
-    // Add gradient definitions
+    // Add gradient definitions (static, created once)
     const defs = svg.append("defs")
     
-    // Globe gradient - darker, more subtle
+    // Globe gradient
     const globeGradient = defs.append("radialGradient")
       .attr("id", "globe-gradient")
       .attr("cx", "35%")
@@ -149,7 +152,7 @@ export default function SpinningGlobe() {
       .attr("offset", "100%")
       .attr("stop-color", "#010409")
 
-    // Glow filter for highlighted countries
+    // Glow filter
     const filter = defs.append("filter")
       .attr("id", "glow")
       .attr("x", "-50%")
@@ -165,29 +168,29 @@ export default function SpinningGlobe() {
     feMerge.append("feMergeNode").attr("in", "coloredBlur")
     feMerge.append("feMergeNode").attr("in", "SourceGraphic")
 
-    // Draw sphere background (ocean)
+    // Draw sphere background (static)
     svg.append("circle")
+      .attr("class", "globe-sphere")
       .attr("cx", width / 2)
       .attr("cy", height / 2)
       .attr("r", scale)
       .attr("fill", "url(#globe-gradient)")
 
-    // Draw graticule (grid lines) - very subtle
+    // Draw graticule (will be updated)
     const graticule = d3.geoGraticule().step([20, 20])
     svg.append("path")
       .datum(graticule())
-      .attr("d", path as unknown as string)
+      .attr("class", "graticule")
       .attr("fill", "none")
       .attr("stroke", "rgba(255, 255, 255, 0.03)")
       .attr("stroke-width", 0.5)
 
-    // Draw countries with relative coloring
+    // Create country paths (will be updated)
     svg.selectAll(".country")
       .data(worldData)
       .enter()
       .append("path")
       .attr("class", "country")
-      .attr("d", (d: GeoFeature) => path(d as d3.GeoPermissibleObjects) || "")
       .attr("fill", (d: GeoFeature) => {
         const countryId = String(d.id || (d.properties as { id?: string })?.id || "")
         return getCountryColor(countryId)
@@ -202,19 +205,48 @@ export default function SpinningGlobe() {
         return countryValues[countryId] && countryValues[countryId] >= 40 ? "url(#glow)" : ""
       })
 
-    // Subtle atmosphere ring
+    // Atmosphere ring (static)
     svg.append("circle")
+      .attr("class", "atmosphere")
       .attr("cx", width / 2)
       .attr("cy", height / 2)
       .attr("r", scale + 1)
       .attr("fill", "none")
       .attr("stroke", "rgba(20, 184, 166, 0.1)")
       .attr("stroke-width", 2)
+
+    isInitializedRef.current = true
   }, [worldData])
 
-  // Animation loop
+  // Update only the paths (efficient)
+  const updatePaths = useCallback(() => {
+    if (!svgRef.current || !projectionRef.current || !pathGeneratorRef.current) return
+
+    const svg = d3.select(svgRef.current)
+    
+    // Update projection rotation
+    projectionRef.current.rotate([rotationRef.current[0], rotationRef.current[1], 0])
+
+    // Update graticule path
+    const graticule = d3.geoGraticule().step([20, 20])
+    svg.select(".graticule")
+      .attr("d", pathGeneratorRef.current(graticule()) as string)
+
+    // Update country paths
+    svg.selectAll(".country")
+      .attr("d", (d: unknown) => pathGeneratorRef.current!(d as d3.GeoPermissibleObjects) || "")
+  }, [])
+
+  // Initialize when world data loads
   useEffect(() => {
-    if (worldData.length === 0) return
+    if (worldData.length > 0) {
+      initializeSvg()
+    }
+  }, [worldData, initializeSvg])
+
+  // Animation loop - only updates paths now
+  useEffect(() => {
+    if (worldData.length === 0 || !isInitializedRef.current) return
 
     const animate = () => {
       if (!isDraggingRef.current) {
@@ -230,7 +262,7 @@ export default function SpinningGlobe() {
         }
       }
       
-      render()
+      updatePaths()
       animationRef.current = requestAnimationFrame(animate)
     }
 
@@ -241,7 +273,7 @@ export default function SpinningGlobe() {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [worldData, render])
+  }, [worldData, updatePaths])
 
   // Mouse/touch handlers for dragging
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -370,6 +402,7 @@ export default function SpinningGlobe() {
             background: 'radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, rgba(6, 182, 212, 0.06) 30%, transparent 60%)',
             borderRadius: '50%',
             filter: 'blur(40px)',
+            willChange: 'transform',
           }}
         />
         

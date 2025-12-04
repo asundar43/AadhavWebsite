@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 interface Star {
   id: number;
@@ -11,30 +10,54 @@ interface Star {
   opacity: number;
   duration: number;
   delay: number;
+  colorType: number;
 }
 
 export function StarfieldBackground({ count = 100 }: { count?: number }) {
-  const [stars, setStars] = useState<Star[]>([]);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
+  // Generate stars once with useMemo (deterministic based on count)
+  const stars = useMemo(() => {
     const generatedStars: Star[] = [];
+    // Use seeded random for consistent stars
+    const seededRandom = (seed: number) => {
+      const x = Math.sin(seed * 9999) * 10000;
+      return x - Math.floor(x);
+    };
+    
     for (let i = 0; i < count; i++) {
       generatedStars.push({
         id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.6 + 0.4,
-        duration: Math.random() * 4 + 3,
-        delay: Math.random() * 3,
+        x: seededRandom(i * 1) * 100,
+        y: seededRandom(i * 2) * 100,
+        size: seededRandom(i * 3) * 3 + 1,
+        opacity: seededRandom(i * 4) * 0.6 + 0.4,
+        duration: seededRandom(i * 5) * 4 + 3,
+        delay: seededRandom(i * 6) * 3,
+        colorType: i % 3,
       });
     }
-    setStars(generatedStars);
+    return generatedStars;
   }, [count]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Get color based on type
+  const getStarColor = (colorType: number) => {
+    switch (colorType) {
+      case 0: return { bg: "rgba(20, 184, 166, 1)", shadow: "0 0 6px rgba(20, 184, 166, 0.8)" };
+      case 1: return { bg: "rgba(6, 182, 212, 1)", shadow: "0 0 6px rgba(6, 182, 212, 0.8)" };
+      default: return { bg: "rgba(255, 255, 255, 0.9)", shadow: "0 0 4px rgba(255, 255, 255, 0.5)" };
+    }
+  };
+
+  if (!mounted) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Gradient overlay */}
+      {/* Gradient overlay - static */}
       <div 
         className="absolute inset-0"
         style={{
@@ -42,102 +65,61 @@ export function StarfieldBackground({ count = 100 }: { count?: number }) {
         }}
       />
       
-      {/* Stars */}
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute rounded-full"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: star.size,
-            height: star.size,
-            background: star.id % 3 === 0 
-              ? "rgba(20, 184, 166, 1)" 
-              : star.id % 3 === 1 
-                ? "rgba(6, 182, 212, 1)" 
-                : "rgba(255, 255, 255, 0.9)",
-            boxShadow: star.id % 3 === 0 
-              ? "0 0 6px rgba(20, 184, 166, 0.8)" 
-              : star.id % 3 === 1 
-                ? "0 0 6px rgba(6, 182, 212, 0.8)"
-                : "0 0 4px rgba(255, 255, 255, 0.5)",
-          }}
-          animate={{
-            opacity: [star.opacity * 0.4, star.opacity, star.opacity * 0.4],
-            scale: [0.8, 1.3, 0.8],
-          }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
+      {/* Stars using CSS animations */}
+      {stars.map((star) => {
+        const colors = getStarColor(star.colorType);
+        return (
+          <div
+            key={star.id}
+            className="absolute rounded-full star-twinkle"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+              background: colors.bg,
+              boxShadow: colors.shadow,
+              // CSS custom properties for animation
+              '--star-opacity': star.opacity,
+              '--star-duration': `${star.duration}s`,
+              '--star-delay': `${star.delay}s`,
+              willChange: 'opacity, transform',
+            } as React.CSSProperties}
+          />
+        );
+      })}
 
-      {/* Floating orbs */}
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full"
+      {/* Floating orbs - using CSS animations instead of Framer Motion */}
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full orb-float-1"
         style={{
           background: "radial-gradient(circle, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0.1) 40%, transparent 70%)",
           filter: "blur(80px)",
           left: "5%",
           top: "10%",
-        }}
-        animate={{
-          x: [0, 80, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.3, 1],
-          opacity: [0.8, 1, 0.8],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
+          willChange: 'transform, opacity',
         }}
       />
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full"
+      <div
+        className="absolute w-[400px] h-[400px] rounded-full orb-float-2"
         style={{
           background: "radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0.08) 40%, transparent 70%)",
           filter: "blur(70px)",
           right: "10%",
           bottom: "20%",
-        }}
-        animate={{
-          x: [0, -60, 0],
-          y: [0, -40, 0],
-          scale: [1, 0.85, 1],
-          opacity: [0.7, 1, 0.7],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
+          willChange: 'transform, opacity',
         }}
       />
-      <motion.div
-        className="absolute w-[350px] h-[350px] rounded-full"
+      <div
+        className="absolute w-[350px] h-[350px] rounded-full orb-float-3"
         style={{
           background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
           filter: "blur(60px)",
           left: "50%",
           top: "60%",
-        }}
-        animate={{
-          x: [0, 40, 0],
-          y: [0, -30, 0],
-          scale: [1, 1.15, 1],
-          opacity: [0.5, 0.8, 0.5],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          ease: "easeInOut",
+          willChange: 'transform, opacity',
         }}
       />
     </div>
   );
 }
-
