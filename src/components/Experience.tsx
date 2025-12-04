@@ -6,7 +6,7 @@ const experiences = [
   {
     title: "Partner & Head of Engineering",
     company: "Interlock Studios",
-    period: "Oct 2025 – Present",
+    period: "July 2025 – Present",
     description: "Building the future of media. Backed by Mark Cuban and Atlanta Ventures.",
     tags: ["Media", "Engineering"],
   },
