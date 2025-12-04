@@ -94,41 +94,33 @@ function AuroraBackground() {
   );
 }
 
-// Cursor glow effect - optimized with RAF throttling
+// Cursor glow effect - instant tracking with direct DOM updates
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
-  const positionRef = useRef({ x: 0, y: 0 });
-  const rafRef = useRef<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     
-    // Initialize to center
-    positionRef.current = { 
-      x: window.innerWidth / 2, 
-      y: window.innerHeight / 2 
-    };
+    // Initialize to center immediately
+    if (glowRef.current) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      glowRef.current.style.transform = `translate3d(${centerX - 200}px, ${centerY - 200}px, 0)`;
+    }
 
+    // Direct DOM update in mousemove for zero lag
     const handleMouseMove = (e: MouseEvent) => {
-      positionRef.current = { x: e.clientX, y: e.clientY };
-    };
-
-    // Direct cursor tracking - no lag
-    const animate = () => {
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${positionRef.current.x - 200}px, ${positionRef.current.y - 200}px)`;
+        // Use translate3d for GPU acceleration and instant response
+        glowRef.current.style.transform = `translate3d(${e.clientX - 200}px, ${e.clientY - 200}px, 0)`;
       }
-
-      rafRef.current = requestAnimationFrame(animate);
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    rafRef.current = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -147,6 +139,7 @@ function CursorGlow() {
         filter: "blur(40px)",
         borderRadius: "50%",
         willChange: "transform",
+        contain: "layout paint",
       }}
     />
   );
