@@ -79,6 +79,7 @@ export function StarfieldBackground({ count = 100 }: { count?: number }) {
               height: star.size,
               background: colors.bg,
               boxShadow: colors.shadow,
+              opacity: star.opacity * 0.4,
               // CSS custom properties for animation
               '--star-opacity': star.opacity,
               '--star-duration': `${star.duration}s`,

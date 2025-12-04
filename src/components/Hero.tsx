@@ -97,8 +97,7 @@ function AuroraBackground() {
 // Cursor glow effect - optimized with RAF throttling
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
-  const targetRef = useRef({ x: 0, y: 0 });
-  const currentRef = useRef({ x: 0, y: 0 });
+  const positionRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -106,23 +105,19 @@ function CursorGlow() {
     setMounted(true);
     
     // Initialize to center
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    targetRef.current = { x: centerX, y: centerY };
-    currentRef.current = { x: centerX, y: centerY };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      targetRef.current = { x: e.clientX, y: e.clientY };
+    positionRef.current = { 
+      x: window.innerWidth / 2, 
+      y: window.innerHeight / 2 
     };
 
-    // Smooth animation loop with spring-like easing
-    const animate = () => {
-      const damping = 0.08; // Lower = smoother/slower
-      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * damping;
-      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * damping;
+    const handleMouseMove = (e: MouseEvent) => {
+      positionRef.current = { x: e.clientX, y: e.clientY };
+    };
 
+    // Direct cursor tracking - no lag
+    const animate = () => {
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${currentRef.current.x - 200}px, ${currentRef.current.y - 200}px)`;
+        glowRef.current.style.transform = `translate(${positionRef.current.x - 200}px, ${positionRef.current.y - 200}px)`;
       }
 
       rafRef.current = requestAnimationFrame(animate);

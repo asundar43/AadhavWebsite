@@ -340,6 +340,26 @@ body {
 
 .star-twinkle {
   animation: starTwinkle var(--star-duration) var(--star-delay) ease-in-out infinite;
+  animation-fill-mode: both;
+}
+
+/* Footer star animation - subtle pulse, always visible */
+@keyframes footerStarPulse {
+  0%, 100% {
+    opacity: var(--star-opacity);
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(var(--star-opacity) * 0.85);
+    transform: scale(0.9);
+  }
+}
+
+.footer-star {
+  opacity: var(--star-opacity);
+  animation: footerStarPulse var(--star-duration) var(--star-delay) ease-in-out infinite;
+  animation-fill-mode: both;
+  will-change: opacity, transform;
 }
 
 /* Floating orb animations - GPU accelerated */
