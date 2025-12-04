@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Github, Mail, Twitter } from "lucide-react";
+import { Linkedin, Github, Mail, Twitter, Calendar } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 
 const socialLinks = [
@@ -24,6 +24,11 @@ const socialLinks = [
     name: "Email",
     url: "mailto:aadhav@auralis.one",
     icon: Mail,
+  },
+  {
+    name: "Book a Call",
+    url: "https://cal.com/aadhav/quick-chat",
+    icon: Calendar,
   },
 ];
 

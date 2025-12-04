@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Calendar } from "lucide-react";
 import { useEffect, useState, useRef, useCallback } from "react";
 
 // Animated aurora/gradient blobs - using CSS animations with mouse parallax via CSS variables
@@ -297,10 +297,26 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl sm:text-2xl md:text-3xl text-muted font-light"
+          className="text-xl sm:text-2xl md:text-3xl text-muted font-light mb-8"
         >
           Building things I wish existed
         </motion.p>
+
+        {/* CTA Button */}
+        <motion.a
+          href="https://cal.com/aadhav/quick-chat"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full border border-teal-400/50 bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 hover:border-teal-400/70 hover:text-teal-200 transition-all duration-300 group"
+        >
+          <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+          <span className="text-sm font-medium">Let&apos;s chat</span>
+        </motion.a>
       </div>
 
       {/* Scroll prompt */}
