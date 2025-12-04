@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Aadhav Sundar | Building things I wish existed",
-  description: "Georgia Tech builder. Mark Cuban-backed Head of Engineering at Interlock Studios. Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
+  description: "Georgia Tech builder. Head of Engineering @ Interlock (Mark Cuban–backed). Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
   keywords: ["Aadhav Sundar", "Georgia Tech", "Interlock Studios", "Auralis", "Mark Cuban", "AI", "Founder", "CAD automation"],
   authors: [{ name: "Aadhav Sundar" }],
   applicationName: "Aadhav Sundar",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Aadhav Sundar | Building things I wish existed",
-    description: "Georgia Tech builder. Mark Cuban-backed Head of Engineering at Interlock Studios. Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
+    description: "Georgia Tech builder. Head of Engineering @ Interlock (Mark Cuban–backed). Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
     type: "website",
   },
 };
