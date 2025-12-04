@@ -13,7 +13,7 @@ const projects = [
   },
   {
     title: "Auralis",
-    description: "Technology company hub. Building products that solve real problems.",
+    description: "Building products that solve real problems.",
     url: "https://auralis.one",
     tags: ["Platform", "Tech"],
     gradient: "from-emerald-500/20 to-teal-500/20",
@@ -28,7 +28,7 @@ const projects = [
   {
     title: "Orthostride",
     description: "AI-powered custom orthotics. Patent pending.",
-    url: "#",
+    url: "https://orthostride.web.app",
     tags: ["HealthTech", "AI", "CAD"],
     gradient: "from-green-500/20 to-emerald-500/20",
   },

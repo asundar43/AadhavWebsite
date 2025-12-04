@@ -11,16 +11,16 @@ const featuredAchievements = [
     description: "Competed in Georgia Tech's premier student innovation competition, broadcast live on PBS. The InVenture Prize showcases groundbreaking inventions and entrepreneurship from Georgia Tech students.",
     year: "2025",
     highlight: true,
-    link: "https://www.pbs.org/video/2025-georgia-tech-inventure-prize-dlawfz/",
+    link: "https://www.gpb.org/events/education/2025/03/12/2025-georgia-tech-inventure-prize#t=1h1m20s",
   },
   {
     icon: FlaskConical,
     title: "Regeneron Science Talent Search Scholar",
-    subtitle: "Top 300 / 2,000+ applicants nationwide",
-    description: "Selected among America's top 300 teen scientists in the nation's oldest and most prestigious high school science competition (formerly Intel STS, Westinghouse STS). Recognized for original materials science research.",
+    subtitle: "America's most prestigious science competition",
+    description: "Selected among America's top teen scientists in the nation's oldest and most prestigious high school science competition (formerly Intel STS, Westinghouse STS). Recognized for original materials science research.",
     year: "2023",
     highlight: true,
-    link: "https://doi.org/10.47611/jsrhs.v11i3.2797",
+    link: "https://www.societyforscience.org/regeneron-sts/2023-scholars/#:~:text=Aadhav%20Sundar%2C%20Age:%2017",
   },
   {
     icon: ScrollText,
@@ -39,6 +39,7 @@ const achievements = [
     subtitle: "Skydio · AMA · EAA AirVenture",
     description: "Led McIntosh Aeronautics (sponsored by Airbus) to 1st place at the world's largest aviation event in a search-and-rescue autonomous drone competition.",
     year: "2022",
+    link: "https://www.gpb.org/blogs/education-matters/2022/08/15/mcintosh-high-school-wins-first-place-at-national-drone",
   },
   {
     icon: Award,
@@ -46,7 +47,7 @@ const achievements = [
     subtitle: "Georgia Science & Engineering Fair",
     description: "Most Outstanding STEM Exhibit at the 75th Georgia Science Fair. Also received Best in Category (Materials Science) and 1st Honors.",
     year: "2023",
-    link: "https://doi.org/10.47611/jsrhs.v11i3.2797",
+    link: "https://ysea.org/community-engagement/science-fair-award-isef/",
   },
   {
     icon: Rocket,
