@@ -44,7 +44,7 @@ export default function About() {
             }}
           >
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed mb-6">
-              I build what I needed—and scale what others need.
+              I build what I needed, and scale what others need.
             </p>
             
             <p className="text-base md:text-lg text-muted leading-relaxed mb-10">
