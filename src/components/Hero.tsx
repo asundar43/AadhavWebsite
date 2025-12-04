@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MapPin } from "lucide-react";
 import { useEffect, useState, createContext, useContext } from "react";
 
 // Mouse context to share mouse position across components
@@ -291,15 +291,21 @@ export default function Hero() {
         />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          {/* Location badge */}
+          {/* Location indicator */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white/90 font-medium"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="flex items-center justify-center gap-3 mb-6"
           >
-            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            Atlanta · Georgia Tech
+            <MapPin className="w-3.5 h-3.5 text-teal-400" strokeWidth={1.5} />
+            <span className="text-xs tracking-[0.2em] uppercase text-white/70 font-light">
+              Atlanta
+            </span>
+            <span className="w-4 h-[1px] bg-white/30" />
+            <span className="text-xs tracking-[0.2em] uppercase text-teal-400 font-light">
+              Georgia Tech
+            </span>
           </motion.div>
 
           {/* Name */}
