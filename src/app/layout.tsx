@@ -52,6 +52,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <title>Aadhav Sundar | Building things I wish existed</title>
+        <meta name="apple-mobile-web-app-title" content="Aadhav Sundar | Building things I wish existed" />
+        <meta property="og:title" content="Aadhav Sundar | Building things I wish existed" />
+      </head>
       <body
         className={`${syne.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}
       >

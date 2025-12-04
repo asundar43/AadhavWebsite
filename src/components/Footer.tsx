@@ -97,7 +97,7 @@ function FooterStars({ count = 40 }: { count?: number }) {
         style={{
           width: "450px",
           height: "450px",
-          background: "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.05) 35%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, rgba(37, 99, 235, 0.1) 35%, transparent 65%)",
           filter: "blur(80px)",
           left: "-20%",
           top: "-20%",
@@ -108,7 +108,7 @@ function FooterStars({ count = 40 }: { count?: number }) {
         style={{
           width: "400px",
           height: "400px",
-          background: "radial-gradient(circle, rgba(99, 102, 241, 0.11) 0%, rgba(79, 70, 229, 0.04) 35%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(79, 70, 229, 0.08) 35%, transparent 65%)",
           filter: "blur(75px)",
           right: "-10%",
           top: "10%",
@@ -119,7 +119,7 @@ function FooterStars({ count = 40 }: { count?: number }) {
         style={{
           width: "380px",
           height: "380px",
-          background: "radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, rgba(126, 34, 206, 0.035) 35%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, rgba(126, 34, 206, 0.07) 35%, transparent 65%)",
           filter: "blur(70px)",
           left: "15%",
           bottom: "-25%",
@@ -130,7 +130,7 @@ function FooterStars({ count = 40 }: { count?: number }) {
         style={{
           width: "320px",
           height: "320px",
-          background: "radial-gradient(circle, rgba(6, 182, 212, 0.09) 0%, rgba(8, 145, 178, 0.03) 40%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, rgba(8, 145, 178, 0.06) 40%, transparent 65%)",
           filter: "blur(65px)",
           right: "20%",
           top: "-15%",
@@ -141,7 +141,7 @@ function FooterStars({ count = 40 }: { count?: number }) {
         style={{
           width: "360px",
           height: "360px",
-          background: "radial-gradient(circle, rgba(30, 64, 175, 0.1) 0%, rgba(29, 78, 216, 0.035) 35%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(30, 64, 175, 0.18) 0%, rgba(29, 78, 216, 0.07) 35%, transparent 65%)",
           filter: "blur(70px)",
           left: "45%",
           bottom: "-10%",
