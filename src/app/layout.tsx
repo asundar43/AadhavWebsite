@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Aadhav Sundar | Building things I wish existed",
-    description: "Georgia Tech builder. Mark Cuban-backed founder. Creator of Auralis—used in 30+ countries.",
+    description: "Georgia Tech builder. Mark Cuban-backed Head of Engineering at Interlock Studios. Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
     type: "website",
   },
 };
