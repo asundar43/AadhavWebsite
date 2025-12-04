@@ -7,19 +7,37 @@ const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Aadhav Sundar | Building things I wish existed",
-  description: "Georgia Tech builder. Mark Cuban-backed founder at Interlock Studios. Creator of Auralis—used in 30+ countries. Patent-pending AI for CAD automation.",
+  description: "Georgia Tech builder. Mark Cuban-backed Head of Engineering at Interlock Studios. Founder of Auralis Technologies - software deployed in 50+ countries. Patent-pending AI for CAD automation.",
   keywords: ["Aadhav Sundar", "Georgia Tech", "Interlock Studios", "Auralis", "Mark Cuban", "AI", "Founder", "CAD automation"],
   authors: [{ name: "Aadhav Sundar" }],
+  applicationName: "Aadhav Sundar",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Aadhav Sundar",
+    statusBarStyle: "black-translucent",
+  },
   openGraph: {
     title: "Aadhav Sundar | Building things I wish existed",
     description: "Georgia Tech builder. Mark Cuban-backed founder. Creator of Auralis—used in 30+ countries.",
